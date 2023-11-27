@@ -1,5 +1,6 @@
 package med.vol.api.controller;
 
+import jakarta.validation.Valid;
 import med.vol.api.doctor.Doctor;
 import med.vol.api.doctor.DoctorRepository;
 import med.vol.api.doctor.RegisterDataDoctor;
@@ -14,7 +15,7 @@ public class DoctorController {
     private DoctorRepository repository; //imjeção de dependências
     @PostMapping
     @Transactional
-    public void register(@RequestBody RegisterDataDoctor data) {
+    public void register(@RequestBody @Valid RegisterDataDoctor data) {
         repository.save(new Doctor(data));
         System.out.println(data);
     }
