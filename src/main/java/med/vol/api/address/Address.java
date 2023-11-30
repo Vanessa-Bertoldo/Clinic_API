@@ -27,4 +27,17 @@ public class Address {
         this.numero         = endereco.cidade();
         this.complemento    = endereco.complemento();
     }
+
+    public void updateInfoAddress(DataAddress address) {
+        if(address != null){
+            this.logradouro     = address.logradouro() != null ? address.logradouro() : this.logradouro;
+            this.bairro         = address.bairro() != null ? address.bairro() : this.bairro;
+            this.cep            = address.cep() != null ? address.cep() : this.cep;
+            this.uf             = address.uf() != null ? address.uf() : this.uf;
+            this.cidade         = address.cidade() != null ? address.cidade() : this.cidade;
+            this.numero         = address.cidade() != null ? address.numero() : this.numero;
+            this.complemento    = address.complemento() != null ? address.complemento() : this.complemento;
+        }
+
+    }
 }

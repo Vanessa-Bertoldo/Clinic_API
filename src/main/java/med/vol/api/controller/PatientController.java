@@ -6,6 +6,9 @@ import med.vol.api.patient.Patient;
 import med.vol.api.patient.PatientRepository;
 import med.vol.api.patient.RegisterDataPatient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,8 +28,9 @@ public class PatientController {
     }
 
     @GetMapping
-    public List<DataListPatient> listDoctors(){
-        return repository.findAll().stream().map(DataListPatient::new).toList();
+    public Page<DataListPatient> listDoctors(@PageableDefault(sort={"nome"}) Pageable pageable){
+        //return repository.findAll().stream().map(DataListPatient::new).toList();
+        return repository.findAll(pageable).map(DataListPatient::new);
     }
 
 

@@ -1,7 +1,7 @@
 package med.vol.api.patient;
 
-public record DataListPatient(String nome, String email, String telefone) {
+public record DataListPatient(Long id, String nome, String email, String telefone) {
     public DataListPatient(Patient patient){
-        this(patient.getNome(), patient.getEmail(), patient.getTelefone());
+        this(patient.getId(), patient.getNome(), patient.getEmail(), patient.getTelefone());
     }
 }
