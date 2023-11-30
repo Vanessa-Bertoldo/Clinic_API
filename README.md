@@ -1,3 +1,7 @@
+<p align="center">
+  <a href="https://spring.io/projects/spring-boot" target="blank"><img src="/assets/spring.jpg" width="320" alt="Spring boot Logo" /></a>
+</p>
+
 # API Rest with Java and Spring Boot
 
 ## ⚠️️ Project in progress
