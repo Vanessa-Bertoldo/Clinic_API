@@ -1,10 +1,8 @@
 package med.vol.api.controller;
 
+import jakarta.validation.Valid;
 import med.vol.api.doctor.DataList;
-import med.vol.api.patient.DataListPatient;
-import med.vol.api.patient.Patient;
-import med.vol.api.patient.PatientRepository;
-import med.vol.api.patient.RegisterDataPatient;
+import med.vol.api.patient.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,8 +28,21 @@ public class PatientController {
     @GetMapping
     public Page<DataListPatient> listDoctors(@PageableDefault(sort={"nome"}) Pageable pageable){
         //return repository.findAll().stream().map(DataListPatient::new).toList();
-        return repository.findAll(pageable).map(DataListPatient::new);
+        return repository.findAllByAtivoTrue(pageable).map(DataListPatient::new);
     }
 
+    @PutMapping
+    @Transactional
+    public void updateDataPatient(@RequestBody @Valid DataUpdatePatient data){
+        var patient = repository.getReferenceById(data.id());
+        patient.updateData(data);
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void deleteDataPatient(@PathVariable Long id){ //PathVariable indicates that the id comes from the link
+        var patient = repository.getReferenceById(id);
+        patient.inactivatePatient();
+    }
 
 }

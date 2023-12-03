@@ -15,6 +15,7 @@ import med.vol.api.address.Address;
 @Table(name = "patient")
 public class Patient {
     @Id @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    private Boolean ativo;
     private Long id;
     private String nome;
     private String email;
@@ -25,10 +26,22 @@ public class Patient {
 
 
     public Patient(RegisterDataPatient data) {
+        this.ativo              = true;
         this.nome               = data.nome();
         this.email              = data.email();
         this.telefone           = data.telefone();
         this.cpf                = data.cpf();
         this.endereco           = new Address(data.endereco());
+    }
+
+    public void updateData(DataUpdatePatient data) {
+        this.nome           = data.nome() != null ? data.nome() : this.nome;
+        this.email          = data.email() != null ? data.email() : this.email;
+        this.telefone       = data.telefone() != null ? data.telefone() : this.telefone;
+        this.endereco.updateInfoAddress(data.address());
+    }
+
+    public void inactivatePatient() {
+        this.ativo = false;
     }
 }

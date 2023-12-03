@@ -24,9 +24,9 @@ public class DoctorController {
     }
 
     @GetMapping
-    public Page<DataList> listDoctors(@PageableDefault(size = 10, sort = {"nome"}) Pageable pageable){
+    public Page<DataList> listDoctors(@PageableDefault(sort = {"nome"}) Pageable pageable){
         //return repository.findAll(pageable).stream().map(DataList::new).toList();
-        return repository.findAll(pageable).map(DataList::new);
+        return repository.findAllByAtivoTrue(pageable).map(DataList::new);
     }
 
     @PutMapping
@@ -34,5 +34,16 @@ public class DoctorController {
     public void updateDataDoctor(@RequestBody @Valid DataUpdate data){
         var doctor = repository.getReferenceById(data.id());
         doctor.updateData(data);
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void deleteDataDoctor(@PathVariable Long id){
+        // permanent deletion
+        //repository.deleteById(id);
+
+        // logic deletion
+        var doctor = repository.getReferenceById(id);
+        doctor.inactivateDoctor();
     }
 }

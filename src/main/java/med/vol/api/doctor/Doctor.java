@@ -15,6 +15,7 @@ import med.vol.api.address.Address;
 @EqualsAndHashCode(of = "id")
 public class Doctor {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Boolean ativo;
     private Long id;
     private String nome;
     private String email;
@@ -26,6 +27,7 @@ public class Doctor {
     private Address address;
 
     public Doctor(RegisterDataDoctor data) {
+        this.ativo              = true;
         this.nome               = data.nome();
         this.email              = data.email();
         this.telefone           = data.telefone();
@@ -38,5 +40,9 @@ public class Doctor {
         this.nome       = data.nome() != null ? data.nome() : this.nome;
         this.telefone   = data.telefone() != null ? data.telefone() : this.telefone;
         this.address.updateInfoAddress(data.address());
+    }
+
+    public void inactivateDoctor() {
+        this.ativo = false;
     }
 }
