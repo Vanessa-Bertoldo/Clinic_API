@@ -32,7 +32,7 @@
     spring:
         datasource:
             driver-class-name: com.mysql.cj.jdbc.Driver
-            url: jdbc:mysql://localhost:3306/clinica
+            url: jdbc:mysql://localhost:3306/vollmed_api
             username: username
             password: password
 ```  
